@@ -29,6 +29,7 @@ export function initSteps() {
         const state = { p: 0.218 };
         const apply = () => {
           fill.style.width = `${state.p * 100}%`;
+          fill.classList.toggle('is-complete', state.p >= 0.995);
           setActive(Math.min(steps.length - 1, Math.round(state.p * (steps.length - 1) + 0.15)));
         };
 
