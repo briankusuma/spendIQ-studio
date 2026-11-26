@@ -1,0 +1,43 @@
+/* Figma 4148:3588 — 1440 × 149, padding 40, gap 100 */
+.stats {
+  position: relative;
+  padding: 40px var(--gutter);
+}
+
+.stats__list {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column-reverse; /* dt di bawah dd secara visual, urutan semantik tetap */
+  gap: 4px;
+}
+
+.stats__value {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats__label {
+  font-size: var(--fs-small);
+  line-height: normal;
+}
+
+@media (max-width: 899px) {
+  .stats__list { gap: 56px; }
+}
+
+@media (max-width: 599px) {
+  .stats { padding-block: 48px 24px; }
+  .stats__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+  .stats__value { font-size: 44px; }
+}

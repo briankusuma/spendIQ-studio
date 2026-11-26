@@ -1,0 +1,136 @@
+/* Figma 4148:1313 — 1440 × 958
+   Konten mulai y=100, dashboard (1152 × 735) mulai y=473 dan terpotong di y=958.
+   Fade bawah: Rectangle 921767 (y=815, h=165). */
+.hero {
+  --dash-w: 1152;
+  --dash-visible: 485;            /* 958 - 473 */
+  --dash-scale: 1;
+  position: relative;
+  padding-top: 100px;
+  isolation: isolate;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: calc(var(--nav-h) * -1) 0 0;
+  z-index: -1;
+  pointer-events: none;
+  /* Nyala biru di belakang dashboard — warna disampling dari render Figma (4148:1313):
+     pusat ≈ y 750px (#212c4e), sisi bawah #1a213a, atas #121317. */
+  background: radial-gradient(
+    86% 800px at 50% calc(var(--nav-h) + 750px),
+    #212c4e 0%,
+    #1f2a4a 40%,
+    #1b2239 60%,
+    #161b28 71%,
+    #121317 90%,
+    var(--bg) 100%
+  );
+}
+
+/* Grain halus seperti tekstur di Figma */
+.hero__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  max-width: calc(1012px + var(--gutter) * 2);
+  text-align: center;
+}
+
+.hero__heading {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.hero__title {
+  width: 726px;
+  max-width: 100%;
+  font-size: var(--fs-display);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.hero__title-line {
+  display: block;
+  font-size: var(--fs-display);
+  letter-spacing: -0.06em;
+}
+
+/* block selebar judul agar gradien membentang seperti di Figma (text box 726px) */
+.hero__title .title-serif {
+  --title-grad: var(--grad-serif);
+  display: block;
+  font-size: var(--fs-display-serif);
+  letter-spacing: -0.034em;
+  line-height: 1;
+}
+
+.hero__lead {
+  font-size: var(--fs-body);
+  line-height: 1.4;
+}
+
+/* ---------- Stage dashboard ---------- */
+.hero__stage {
+  position: relative;
+  margin-top: 52px;
+  height: calc(var(--dash-visible) * 1px * var(--dash-scale));
+}
+
+.hero__viewport {
+  position: absolute;
+  /* -24px: ruang untuk glow & bezel di atas dashboard */
+  inset: -24px 0 0;
+  overflow: hidden;
+}
+
+.hero__scaler {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: calc(var(--dash-w) * 1px);
+  transform: translateX(-50%) scale(var(--dash-scale));
+  transform-origin: top center;
+}
+
+.hero__fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-22px * var(--dash-scale));
+  height: calc(165px * var(--dash-scale) + 22px);
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(17, 17, 17, 0) 0%, var(--bg) 85%);
+}
+
+@media (max-width: 899px) {
+  .hero { padding-top: 64px; }
+  .hero__lead br { display: none; }
+  .hero__stage { margin-top: 48px; }
+}
+
+@media (max-width: 599px) {
+  .hero { padding-top: 48px; }
+  /* Layar sempit: sembunyikan sidebar dashboard, mulai crop dari area utama */
+  .hero__scaler {
+    left: var(--gutter);
+    transform: translateX(calc(-199px * var(--dash-scale))) scale(var(--dash-scale));
+    transform-origin: top left;
+  }
+  .hero__content { gap: 32px; }
+  .hero__lead { font-size: 15px; }
+}

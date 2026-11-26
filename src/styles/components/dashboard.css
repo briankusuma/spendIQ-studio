@@ -1,0 +1,383 @@
+/* Mockup dashboard hero — Figma 4148:3013 (1152 × 735).
+   Semua ukuran dalam px desain; seluruh dashboard diskalakan lewat .hero__scaler. */
+
+.dash {
+  position: relative;
+  width: 1152px;
+  height: 735px;
+  border-radius: 20px;
+  /* Halo terang tipis di tepi dashboard. Di Figma berasal dari salinan dashboard
+     versi terang yang di-blur (4148:2447) di belakang layar utama: paling terang
+     tepat di tepi (#7c8395) lalu hilang dalam ±6px. */
+  box-shadow:
+    0 0 0 1px rgba(170, 178, 200, 0.6),
+    0 0 7px 3px rgba(150, 160, 185, 0.5),
+    0 0 18px 4px rgba(120, 135, 175, 0.12);
+  transform-origin: 50% 0%;
+  will-change: transform;
+}
+
+.dash__screen {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  background: var(--surface-dark);
+  font-weight: 500;
+  font-size: 11.2px;
+  line-height: normal;
+  color: #fff;
+  text-align: left;
+}
+
+.dash img { max-width: none; }
+
+/* ---------- Sidebar (4148:3014) ---------- */
+.dash-side {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 195.2px;
+  padding: 16px;
+  border-right: 0.8px solid rgba(255, 255, 255, 0.12);
+}
+
+.dash-side__logo {
+  display: flex;
+  align-items: center;
+  gap: 6.4px;
+  height: 35.2px;
+  padding-inline: 12.8px;
+  font-weight: 900;
+  font-size: 14.4px;
+  letter-spacing: -0.4px;
+}
+
+.dash-side__group { display: flex; flex-direction: column; gap: 3.2px; }
+.dash-side__groups { display: flex; flex-direction: column; gap: 9.6px; margin-top: 16px; }
+
+.dash-side__title {
+  padding: 8px 12.8px;
+  font-style: italic;
+  line-height: 16px;
+  color: var(--text-faint);
+}
+
+.dash-side__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6.4px;
+  padding: 8px 12.8px;
+  border-radius: 9.6px;
+  line-height: 16px;
+  color: var(--text-muted);
+}
+.dash-side__item img { width: 16px; height: 16px; }
+
+.dash-side__item.is-active {
+  color: #fff;
+  background: var(--surface-dark);
+  border: 0.8px solid var(--border-strong);
+  padding: 7.2px 12px;
+}
+.dash-side__item.is-active::before {
+  /* Dashboard highlight: blur putih di kiri */
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 10.4px;
+  width: 32px;
+  height: 16px;
+  border-radius: 80px;
+  background: rgba(255, 255, 255, 0.5);
+  filter: blur(8px);
+  z-index: -1;
+}
+.dash-side__item.is-active { isolation: isolate; }
+
+.dash-side__item--danger { color: var(--danger); }
+
+.dash-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  padding: 3.2px 4.8px;
+  border-radius: 80px;
+  font-size: 8.8px;
+  line-height: normal;
+  white-space: nowrap;
+}
+.dash-badge--neutral { background: rgba(255, 255, 255, 0.12); color: #fff; }
+.dash-badge--green { background: rgba(18, 171, 51, 0.08); color: var(--success); }
+.dash-badge--blue { background: rgba(81, 162, 255, 0.08); color: var(--blue-300); }
+.dash-badge--red { background: rgba(255, 100, 103, 0.08); color: var(--danger); }
+
+/* ---------- Main (4148:3070) ---------- */
+.dash-main {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+}
+
+.dash-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 35px;
+}
+.dash-header__title { font-size: 16px; letter-spacing: -0.4px; }
+.dash-header__subtitle { line-height: 16px; color: var(--text-muted); }
+
+.dash-header__actions { display: flex; align-items: center; gap: 12.8px; }
+
+.dash-search {
+  display: flex;
+  align-items: center;
+  gap: 6.4px;
+  width: 196px;
+  padding: 6.4px 12.8px;
+  border-radius: 800px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 0.8px solid rgba(255, 255, 255, 0.08);
+  line-height: 17.6px;
+}
+.dash-search__placeholder { flex: 1; color: var(--text-subtle); }
+.dash-search__kbd { display: flex; align-items: center; gap: 3.2px; color: var(--text-muted); }
+
+.dash-icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+}
+.dash-icon-btn img { width: 19.2px; height: 19.2px; }
+.dash-icon-btn__dot { position: absolute; left: 18.4px; top: 7.2px; width: 6.4px !important; height: 6.4px !important; }
+.dash-header__icons { display: flex; gap: 4.8px; }
+
+.dash-profile { display: flex; align-items: center; gap: 6.4px; line-height: 16px; }
+.dash-profile img { width: 32px; height: 32px; border-radius: 50%; }
+
+.dash-content {
+  display: grid;
+  grid-template-columns: 608px 308.8px;
+  gap: 8px;
+  margin-top: 16px;
+}
+.dash-col { display: flex; flex-direction: column; gap: 8px; }
+
+.dash-card {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  border-radius: 12.8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dash-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dash-card__title { display: flex; align-items: center; gap: 6.4px; }
+.dash-card__title img,
+.dash-dots { width: 16px; height: 16px; }
+
+.dash-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 3.2px;
+  height: 19.2px;
+  padding: 0 8px;
+  border-radius: 80px;
+  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
+  font-size: 9.6px;
+}
+.dash-select img { width: 11.2px; height: 11.2px; }
+
+/* ----- Monthly spend (4148:3107) ----- */
+.dash-spend { display: flex; flex-direction: column; gap: 16px; }
+.dash-spend__row { display: flex; align-items: center; justify-content: space-between; }
+.dash-spend__left { display: flex; flex-direction: column; gap: 16px; width: 188px; }
+.dash-spend__value { font-size: 32px; letter-spacing: -0.4px; font-variant-numeric: tabular-nums; }
+.dash-spend__change { display: flex; align-items: center; gap: 3.2px; margin-top: 3.2px; font-size: 8.8px; color: var(--text-subtle); }
+.dash-spend__change .dash-badge img { width: 9.6px; height: 9.6px; }
+
+.dash-spend__right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; width: 313.6px; }
+.dash-stats { display: flex; gap: 8px; width: 100%; }
+.dash-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 10.4px;
+  padding: 9.6px;
+  border-radius: 6.4px;
+  background: var(--surface-dark);
+}
+.dash-stat__label { display: flex; align-items: center; gap: 3.2px; font-size: 9.6px; color: var(--text-muted); }
+.dash-stat__label img { width: 11.2px; height: 11.2px; }
+.dash-stat__value { display: flex; align-items: center; gap: 3.2px; font-weight: 600; font-size: 12.8px; }
+
+.dash-reminder {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 6.4px;
+  padding: 6.4px 9.6px;
+  border-radius: 80px;
+  border: 0.8px solid var(--border-strong);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(125.8deg, #155dfc 18.1%, #4f39f6 15%, rgba(255, 142, 67, 0.6) 43%, #081636 66.4%);
+  font-size: 9.6px;
+}
+.dash-reminder > img:first-child { width: 16px; height: 16px; }
+.dash-reminder__text { flex: 1; }
+.dash-reminder__cta { display: flex; align-items: center; gap: 3.2px; font-weight: 600; white-space: nowrap; }
+.dash-reminder__cta img { width: 11.2px; height: 11.2px; }
+.dash-reminder__glow { position: absolute; left: 152px; top: -36px; width: 211.2px; height: 60px; pointer-events: none; }
+
+/* ----- Annual spending (4148:3161) ----- */
+.dash-annual { display: flex; flex-direction: column; gap: 12.8px; }
+.dash-annual__filter { display: flex; align-items: center; gap: 12.8px; }
+.dash-annual__filter > span { display: flex; align-items: center; gap: 6.4px; font-size: 9.6px; color: var(--text-muted); }
+
+.dash-chart { display: flex; flex-direction: column; gap: 16px; }
+.dash-chart__values { display: flex; flex-direction: column; gap: 8px; }
+.dash-chart__bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 121.6px;
+}
+.dash-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 28.8px;
+  opacity: 0.3;
+  transform-origin: 50% 100%;
+}
+.dash-bar i {
+  display: block;
+  height: calc(var(--h) * 1px);
+  border-radius: 9.6px;
+}
+.dash-bar i:nth-child(1) { background: var(--blue-400); }
+.dash-bar i:nth-child(2) { background: var(--blue-500); }
+.dash-bar i:nth-child(3) { background: var(--blue-600); }
+
+.dash-bar.is-active { opacity: 1; }
+.dash-bar.is-active i:nth-child(3) {
+  position: relative;
+  overflow: hidden;
+  border: 0.4px solid var(--border-strong);
+  box-shadow: 0 12.8px 25.6px rgba(255, 255, 255, 0.42);
+}
+.dash-bar__glow { position: absolute; left: -24px; top: 18.8px; width: 94.4px; height: 76px; }
+.dash-bar__dot { position: absolute; left: 8.8px; top: -5.6px; width: 11.2px; height: 11.2px; }
+
+.dash-chart__months {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 3.2px;
+  font-size: 9.6px;
+  color: var(--text-muted);
+  text-align: center;
+}
+.dash-chart__months span { width: 22.4px; }
+.dash-chart__months .is-active { color: #fff; }
+
+.dash-chart__footer { display: flex; align-items: center; justify-content: space-between; font-size: 8.8px; color: var(--text-subtle); }
+.dash-legend { display: flex; gap: 16px; }
+.dash-legend span { display: flex; align-items: center; gap: 6.4px; }
+.dash-legend span::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+
+.dash-tooltip {
+  position: absolute;
+  left: 300px;
+  top: 16px;
+  width: 112.8px;
+  padding: 9.6px;
+  border-radius: 9.6px;
+  border: 0.8px solid rgba(255, 255, 255, 0.03);
+  background: var(--surface-dark);
+  box-shadow: 0 19.2px 25.6px rgba(255, 255, 255, 0.05);
+  font-size: 8.8px;
+}
+.dash-tooltip__date { display: flex; align-items: center; gap: 3.2px; }
+.dash-tooltip__date img { width: 4.8px; height: 4.8px; }
+.dash-tooltip__line { width: 93.6px; height: 0.8px; margin-block: 6.4px; }
+.dash-tooltip dl { display: flex; flex-direction: column; gap: 4.8px; }
+.dash-tooltip dl div { display: flex; justify-content: space-between; gap: 9.6px; }
+.dash-tooltip dt { color: var(--text-muted); }
+
+/* ----- Account balance (4148:3436) ----- */
+.dash-balance { display: flex; flex-direction: column; gap: 20.8px; }
+.dash-balance__glow { position: absolute; left: -130.4px; top: -178.4px; width: 484px; height: 492px; pointer-events: none; }
+.dash-balance__body { position: relative; display: flex; flex-direction: column; gap: 16px; }
+.dash-balance__amount-row { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 9.6px; }
+.dash-balance__amount { display: flex; align-items: center; gap: 6.4px; font-size: 22.4px; letter-spacing: -0.4px; font-variant-numeric: tabular-nums; }
+.dash-balance__amount img,
+.dash-balance__points img { width: 16px; height: 16px; }
+.dash-balance__points { display: flex; align-items: center; gap: 3.2px; }
+.dash-balance__points b { font-weight: 600; }
+.dash-balance__points small { font-size: 9.6px; color: var(--text-subtle); }
+.dash-balance__promo .dash-badge { gap: 3.2px; }
+.dash-balance__promo img { width: 9.6px; height: 9.6px; }
+
+.dash-balance__actions { position: relative; display: flex; gap: 6.4px; }
+.dash-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6.4px;
+  width: 135.2px;
+  height: 28.8px;
+  border-radius: 80px;
+  font-weight: 600;
+  line-height: 16px;
+}
+.dash-btn img { width: 14.4px; height: 14.4px; }
+.dash-btn--light { background: #fff; color: var(--surface-dark); }
+.dash-btn--dark { background: var(--surface-btn); color: #fff; }
+
+/* ----- Transaction history (4148:3468) ----- */
+.dash-tx { display: flex; flex-direction: column; gap: 16px; }
+.dash-progress { display: flex; flex-direction: column; gap: 6.4px; font-size: 8.8px; color: var(--text-subtle); }
+.dash-progress__track { position: relative; height: 8px; overflow: hidden; border-radius: 80px; background: rgba(255, 255, 255, 0.08); }
+.dash-progress__fill { position: absolute; left: 0; top: 0; width: 156px; height: 8px; transform-origin: left center; }
+.dash-progress__meta { display: flex; justify-content: space-between; }
+.dash-progress__meta b { font-weight: 700; color: #fff; }
+.dash-progress__meta span span { color: #fff; margin-right: 6.4px; }
+
+.dash-tx__group { display: flex; flex-direction: column; gap: 9.6px; }
+.dash-tx__group + .dash-tx__group { margin-top: 0; }
+.dash-tx__day { font-size: 9.6px; color: var(--text-muted); }
+.dash-tx__list { display: flex; flex-direction: column; gap: 9.6px; }
+.dash-tx__item { display: flex; align-items: center; justify-content: space-between; font-size: 9.6px; }
+.dash-tx__who { display: flex; align-items: center; gap: 6.4px; }
+.dash-tx__avatar {
+  position: relative;
+  flex: none;
+  width: 22.4px;
+  height: 22.4px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: var(--surface-btn);
+}
+.dash-tx__avatar--light { background: #fff; }
+.dash-tx__avatar img { position: absolute; }
+.dash-tx__avatar .netflix { left: 0; top: -0.94px; width: 27.44px; height: 23.34px; }
+.dash-tx__avatar .money { left: 3.2px; top: 3.2px; width: 16px; height: 16px; }
+.dash-tx__avatar .icloud { left: 3.2px; top: 6px; width: 16px; height: 10.4px; }
+.dash-tx__avatar .spotify { inset: 0; width: 22.4px; height: 22.4px; }
+.dash-tx__info { display: flex; flex-direction: column; gap: 3.2px; }
+.dash-tx__meta { display: flex; align-items: center; gap: 3.2px; color: var(--text-subtle); }
+.dash-tx__meta img { width: 11.2px; height: 11.2px; }
+.dash-tx__amount--out { color: var(--danger); }
+.dash-tx__amount--in { color: var(--success); }

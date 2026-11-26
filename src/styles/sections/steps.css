@@ -1,0 +1,98 @@
+/* Figma 4148:4188 — 1440 × 828. Kotak angka y=385, track y=420 (h10), kartu y=513. */
+.steps { padding-block: 120px 140px; }
+
+.steps__body {
+  position: relative;
+  margin-top: 75px;
+}
+
+.steps__track {
+  --col: calc((100% - 60px) / 4);
+  position: absolute;
+  top: 35px;
+  left: calc(var(--col) / 2 + 40px);
+  right: calc(var(--col) / 2 + 40px);
+  height: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.steps__fill {
+  display: block;
+  width: 21.8%; /* 195 / 895 — state di Figma */
+  height: 10px;
+  max-width: none;
+}
+
+.steps__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.step__num {
+  font-family: var(--font-serif);
+  font-size: 40px;
+  line-height: 1;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.step__card {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 175px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: var(--radius-card);
+  background: var(--surface-1);
+  text-align: center;
+}
+.step__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad-stroke);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.step.is-active .step__card::after { opacity: 1; }
+.step.is-active .step__num {
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 0 30px rgba(112, 94, 255, 0.35);
+}
+
+.step__title { font-size: 24px; font-weight: 600; line-height: normal; }
+.step__text { color: var(--text-muted); line-height: 1.4; }
+
+@media (max-width: 1023px) {
+  .steps__track { display: none; }
+  .steps__list { grid-template-columns: 1fr 1fr; gap: 40px 20px; }
+  .step { gap: 24px; }
+}
+
+@media (max-width: 599px) {
+  .steps { padding-block: 80px; }
+  .steps__body { margin-top: 48px; }
+  .steps__list { grid-template-columns: 1fr; gap: 20px; }
+  .step { flex-direction: row; align-items: stretch; gap: 16px; }
+  .step__num { width: 64px; height: 64px; font-size: 32px; }
+  .step__card { min-height: 0; padding: 20px; text-align: left; gap: 8px; }
+  .step__title { font-size: 20px; }
+}

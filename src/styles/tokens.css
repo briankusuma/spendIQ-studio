@@ -1,0 +1,70 @@
+/* Design tokens — sumber: Figma "Speedtest" › landing page (4148:1290).
+   File Figma tidak punya Variables; nilai diambil langsung dari layer. */
+:root {
+  /* surface */
+  --bg: #111111;
+  --surface-1: #161616;
+  --surface-dark: #0c0e1b;          /* dashboard, tombol putih text */
+  --surface-btn: #292a36;
+  --navy: #081636;
+
+  /* teks & garis */
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.6);
+  --text-subtle: rgba(255, 255, 255, 0.4);
+  --text-faint: rgba(255, 255, 255, 0.32);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.4);
+
+  /* aksen */
+  --orange: #ff8e43;
+  --purple: #705eff;
+  --indigo: #4f39f6;
+  --blue-300: #51a2ff;
+  --blue-400: #2b7fff;
+  --blue-500: #155dfc;
+  --blue-600: #1447e6;
+  --success: #12ab33;
+  --danger: #ff6467;
+
+  /* gradien */
+  --grad-serif: linear-gradient(104deg, var(--navy) 6.5%, var(--orange) 26.4%, var(--purple) 63.7%, var(--navy) 102.4%);
+  --grad-serif-flat: linear-gradient(100deg, var(--orange) 0%, #c86fb0 45%, var(--purple) 100%);
+  /* stroke 1px kartu (Figma: "border white" — dirender sebagai gradien tipis) */
+  --grad-stroke: linear-gradient(160deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.12) 45%, rgba(255, 255, 255, 0.32) 100%);
+  --tile-bg: linear-gradient(-40deg, #191c27 0%, #505767 110.5%);
+  --grad-border: linear-gradient(90deg, #ffb27a 0%, #ffffff 32%, #ffffff 68%, #a898ff 100%);
+  --grad-announcement:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(154deg, var(--navy) 6.5%, var(--indigo) 44.1%, rgba(255, 142, 67, 0.6) 75.9%, var(--navy) 102.4%);
+
+  /* tipografi */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+
+  --fs-display: clamp(44px, 5vw + 8px, 72px);
+  --fs-display-serif: clamp(52px, 5.8vw + 9px, 84px);
+  --fs-h2: clamp(40px, 4.4vw + 8px, 64px);
+  --fs-h2-serif: clamp(46px, 5vw + 8px, 72px);
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xs: 12px;
+
+  /* layout */
+  --container: 1280px;
+  --gutter: 80px;
+  --nav-h: 68px;
+  --radius-card: 20px;
+  --radius-pill: 100px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1199px) {
+  :root { --gutter: 40px; }
+}
+
+@media (max-width: 599px) {
+  :root { --gutter: 20px; --nav-h: 60px; }
+}

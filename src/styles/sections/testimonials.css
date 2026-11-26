@@ -1,0 +1,129 @@
+/* Figma 4148:4050 — 1440 × 648. Slide 630px, slide samping ±790px (opacity .2). */
+.testimonials {
+  --slide-w: 630px; /* jarak antar slide diatur Swiper (spaceBetween) */
+  position: relative;
+  overflow: hidden;
+  padding-block: 160px 136px;
+  background: var(--bg);
+  isolation: isolate;
+}
+
+.testimonials__glow {
+  position: absolute;
+  left: 50%;
+  top: 175px;
+  width: 1444px;
+  height: 1076px;
+  max-width: none;
+  transform: translateX(-50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.testimonials__quote {
+  position: absolute;
+  left: calc(50% - 347px);
+  top: 72px;
+  width: 64px;
+  height: 64px;
+}
+
+.testimonials__viewport {
+  position: relative;
+  min-height: 292px; /* 452 - 160: kontrol mulai di y=452 */
+}
+
+.testimonials .t-slide {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: var(--slide-w);
+  max-width: calc(100vw - var(--gutter) * 2);
+  height: auto;
+  opacity: 0.2;
+  transition: opacity 0.6s ease;
+  user-select: none;
+}
+.testimonials .t-slide.swiper-slide-active { opacity: 1; }
+
+.t-slide__quote {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.t-slide__meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.t-author { display: flex; align-items: center; gap: 16px; }
+.t-author__avatar {
+  position: relative;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #a2a2a5;
+}
+.t-author__avatar img {
+  position: absolute;
+  left: 5.47%;
+  top: 7.81%;
+  width: 89.06%;
+  height: 89.06%;
+  max-width: none;
+}
+.t-author__avatar--initials {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--indigo), var(--orange));
+  font-weight: 600;
+  font-size: 15px;
+}
+.t-author__name { display: flex; flex-direction: column; gap: 4px; font-weight: 500; line-height: 1.4; }
+.t-author__name small { font-size: 16px; font-weight: 400; color: var(--text-muted); }
+
+.t-slide__divider { width: 1px; height: 48px; background: rgba(255, 255, 255, 0.2); }
+
+.t-rating { display: flex; flex-direction: column; gap: 4px; }
+.t-rating__value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: 32px;
+  line-height: 1;
+}
+.t-rating__value img { width: 24px; height: 24px; }
+.t-rating small { font-size: var(--fs-small); color: var(--text-muted); }
+
+/* Slide samping: tampilkan hanya kutipan + author seperti di Figma */
+.t-slide:not(.swiper-slide-active) .t-slide__divider,
+.t-slide:not(.swiper-slide-active) .t-rating { opacity: 0; }
+.t-slide .t-slide__divider,
+.t-slide .t-rating { transition: opacity 0.4s ease; }
+
+.testimonials__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 899px) {
+  .testimonials { padding-block: 140px 96px; }
+  .testimonials__quote { left: var(--gutter); top: 56px; width: 48px; height: 48px; }
+}
+
+@media (max-width: 599px) {
+  .testimonials { padding-block: 120px 80px; }
+  .testimonials__viewport { min-height: 0; margin-bottom: 40px; }
+  .t-slide__quote { font-size: 17px; }
+  .t-slide__meta { flex-wrap: wrap; gap: 16px; }
+  .t-slide__divider { display: none; }
+  .testimonials__controls .btn--lg { padding-inline: 22px; }
+}

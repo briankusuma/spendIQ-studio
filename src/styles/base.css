@@ -1,0 +1,114 @@
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul, ol { list-style: none; padding: 0; }
+
+:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+[tabindex='-1']:focus { outline: none; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 1000;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--surface-dark);
+  font-weight: 600;
+  font-size: var(--fs-small);
+}
+.skip-link:focus { top: 12px; }
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Judul dua baris: Inter + Instrument Serif Italic bergradien */
+.title-serif {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  background-image: var(--title-grad, var(--grad-serif-flat));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* ruang ekor huruf italic agar tidak terpotong oleh background-clip */
+  padding-inline: 0.06em;
+  margin-inline: -0.06em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.eyebrow {
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Sembunyikan elemen intro sampai JS mengambil alih (lihat main.js) */
+.js [data-intro] { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-intro] { opacity: 1; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -24,6 +24,7 @@
 | `vite` | dev server + build |
 | `gsap` | animasi; plugin `ScrollTrigger` (dan opsional `SplitText` — sejak GSAP 3.13 semua plugin gratis) |
 | `lenis` | smooth scroll (paket baru, bukan `@studio-freight/lenis`) |
+| `swiper` | **semua slider** (testimoni, logo strip) — modul Navigation, Keyboard, Autoplay, A11y |
 
 Font (self-host via `@fontsource` atau Google Fonts):
 - **Inter** — 400, 500, 600, 700
@@ -31,7 +32,7 @@ Font (self-host via `@fontsource` atau Google Fonts):
 
 ```bash
 npm create vite@latest . -- --template vanilla
-npm i gsap lenis
+npm i gsap lenis swiper
 npm i @fontsource/inter @fontsource/instrument-serif   # opsional, untuk self-host
 ```
 
@@ -44,14 +45,14 @@ spendIQ-studio/
 ├── index.html                 # semua markup section (semantic HTML)
 ├── vite.config.js
 ├── package.json
-├── public/
-│   └── favicon.svg
 └── src/
     ├── main.js                # entry: import CSS, init Lenis, init semua modul
     ├── styles/
     │   ├── tokens.css         # warna, font, spacing, radius, shadow (CSS variables)
     │   ├── base.css           # reset, typography, utility (.container, .eyebrow, .title-serif)
     │   ├── components.css     # button, card, badge, pill, accordion, icon-box
+    │   ├── components/
+    │   │   └── dashboard.css  # mockup dashboard hero (ukuran px desain, diskalakan utuh)
     │   └── sections/
     │       ├── announcement.css
     │       ├── navbar.css
@@ -59,9 +60,9 @@ spendIQ-studio/
     │       ├── stats.css
     │       ├── problem.css
     │       ├── features.css   # "Meet SpendIQ" bento grid
-    │       ├── testimonial.css
+    │       ├── testimonials.css
     │       ├── pricing.css
-    │       ├── how-it-works.css
+    │       ├── steps.css      # How It Works
     │       ├── logos.css
     │       ├── faq.css
     │       └── cta-footer.css
@@ -70,16 +71,17 @@ spendIQ-studio/
     │   ├── animations/
     │   │   ├── hero.js
     │   │   ├── reveal.js      # reveal generik berbasis data-attribute
-    │   │   ├── counters.js    # stats 50K+, 2.4M+, dst.
-    │   │   ├── bars.js        # bar chart di dashboard mockup
-    │   │   ├── steps.js       # progress line "How It Works"
-    │   │   └── marquee.js     # logo strip berjalan
+    │   │   ├── sections.js    # counter stats, kartu problem/bento, glow pricing & CTA
+    │   │   └── steps.js       # progress line "How It Works"
+    │   ├── utils/
+    │   │   └── count-up.js    # animasi angka (data-count)
     │   └── components/
+    │       ├── dashboard-scale.js # skala mockup dashboard sesuai lebar layar (--dash-scale)
     │       ├── navbar.js      # sticky/blur on scroll + menu mobile + anchor scroll
-    │       ├── carousel.js    # testimonial
+    │       ├── testimonial-slider.js # Swiper: slider testimoni
+    │       ├── logo-slider.js # Swiper: logo strip berjalan (autoplay delay 0, linear)
     │       ├── accordion.js   # FAQ
-    │       ├── newsletter.js  # validasi email
-    │       └── back-to-top.js
+    │       └── newsletter.js  # validasi email (back-to-top ada di sections.js)
     └── assets/
         ├── icons/             # SVG dari Figma (arrow, check, ikon problem, sosial, dll.)
         ├── logos/             # Netflix, Spotify, Amazon, Adobe, Google, Microsoft, Dropbox, Canva
@@ -227,7 +229,7 @@ Setiap section: `<section id="..." class="section section--xxx">` + node Figma s
 ### 5.7 Testimonial — `4148:4050`
 - Ikon kutip, kutipan Sarah Mitchell (Product Designer), rating **4.9 ★**, panah kiri/kanan, tombol **View All Reviews**. Slide samping terlihat pudar (peek).
 - **Data:** di Figma ketiga slide berisi teks yang sama → siapkan array `testimonials` di JS (isi placeholder 3–5 item sampai copy final tersedia).
-- **Interaksi (carousel.js):** prev/next, keyboard ←/→, swipe (pointer events), autoplay 6 detik yang berhenti saat hover/fokus. Transisi GSAP (`xPercent` + opacity). `aria-live="polite"`.
+- **Interaksi (testimonial-slider.js, Swiper):** `slidesPerView: 'auto'`, `centeredSlides`, `loop`, `spaceBetween` 160 (desktop) / 64 / 40, prev/next, keyboard ←/→, swipe, autoplay 6 detik (hanya saat section terlihat, berhenti saat hover), modul A11y.
 - Latar: glow biru radial + grain.
 
 ### 5.8 Pricing — `4148:4106`
@@ -247,7 +249,7 @@ Setiap section: `<section id="..." class="section section--xxx">` + node Figma s
 ### 5.10 Logo Strip — `4148:4222`
 - Judul kecil *"Works With the Services You Already Use"*.
 - Logo: Netflix, Spotify, Amazon, Adobe, Google, Microsoft, Dropbox, Canva (abu-abu, fade di kiri/kanan dengan mask gradien).
-- **Animasi:** marquee tak berujung (GSAP `xPercent` loop, kecepatan sedikit naik mengikuti velocity scroll Lenis). Pause saat hover.
+- **Animasi:** logo berjalan tak berujung dengan Swiper (`loop`, `autoplay.delay: 0`, transisi linear), berhenti saat section tidak terlihat. Reduced motion: Swiper tidak diinisialisasi, logo diam di tengah.
 
 ### 5.11 FAQ — `4148:4260`
 - Kiri: eyebrow "FAQ", judul *"Frequently Asked **Questions**"*, paragraf, tombol **Contact Support**.
@@ -318,7 +320,7 @@ gsap.ticker.lagSmoothing(0);
 | Testimonial | slide transisi | klik / autoplay |
 | Pricing | kartu reveal | viewport |
 | How It Works | progress line + step aktif | pin + `scrub` |
-| Logo strip | marquee loop + velocity boost | terus-menerus |
+| Logo strip | Swiper autoplay linear (loop) | saat terlihat |
 | FAQ | height accordion | klik |
 | CTA | parallax glow | scroll `scrub` |
 | Navbar | hide/show + blur | arah scroll |
@@ -326,6 +328,7 @@ gsap.ticker.lagSmoothing(0);
 ### 6.4 Aturan performa & aksesibilitas
 
 - Hanya animasikan `transform` dan `opacity` (plus `filter: blur` singkat di intro).
+- **Jangan** beri CSS `transition: transform` pada elemen yang `transform`-nya dianimasikan GSAP — bentrok dan elemen bisa tertahan di state awal (kasus: bar chart Spending History tertahan di `scaleY(0)`). Untuk efek hover pada elemen tersebut, pakai properti CSS terpisah `translate` / `scale`.
 - `gsap.matchMedia()`:
   - `(prefers-reduced-motion: reduce)` → Lenis **tidak** diinisialisasi, semua reveal langsung tampil, marquee & autoplay berhenti.
   - `(max-width: 899px)` → matikan pin "How It Works" & efek 3D dashboard.

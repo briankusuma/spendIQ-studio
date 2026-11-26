@@ -1,0 +1,78 @@
+/* Figma 4148:4222 — 1440 × 240, gap logo 64, overlay fade 400px kiri/kanan */
+.logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  padding-block: 64px;
+}
+
+.logos__title {
+  padding-inline: var(--gutter);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.logos__viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.logos__viewport::before,
+.logos__viewport::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  width: min(400px, 28vw);
+  pointer-events: none;
+}
+.logos__viewport::before { left: 0; background: linear-gradient(to right, var(--bg), rgba(17, 17, 17, 0)); }
+.logos__viewport::after { right: 0; background: linear-gradient(to left, var(--bg), rgba(17, 17, 17, 0)); }
+
+.logos__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 64px;
+  width: max-content;
+  margin-inline: auto;
+}
+.logos .logos__row { width: max-content; margin-inline: auto; } /* statis (reduced motion) */
+
+/* Mode Swiper: gerak konstan → transisi linear, jarak diatur spaceBetween */
+.logos__viewport.is-sliding .logos__row {
+  width: 100%;
+  margin-inline: 0;
+  justify-content: flex-start;
+  gap: 0;
+  transition-timing-function: linear !important;
+}
+.logos__row .swiper-slide { width: auto; flex-shrink: 0; }
+
+.logo-mark {
+  display: block;
+  width: var(--w);
+  height: 32px;
+  background: #fff;
+  -webkit-mask: var(--mask) no-repeat 0 var(--my) / var(--mw) var(--mh);
+  mask: var(--mask) no-repeat 0 var(--my) / var(--mw) var(--mh);
+}
+.logo-mark[data-logo='netflix'] { --mask: url('../../assets/logos/netflix.png'); }
+.logo-mark[data-logo='spotify'] { --mask: url('../../assets/logos/spotify.png'); }
+.logo-mark[data-logo='amazon'] { --mask: url('../../assets/logos/amazon.png'); }
+.logo-mark[data-logo='adobe'] { --mask: url('../../assets/logos/adobe.png'); }
+.logo-mark[data-logo='google'] { --mask: url('../../assets/logos/google.png'); }
+.logo-mark[data-logo='microsoft'] { --mask: url('../../assets/logos/microsoft.png'); }
+.logo-mark[data-logo='dropbox'] { --mask: url('../../assets/logos/dropbox.png'); }
+.logo-mark[data-logo='canva'] { --mask: url('../../assets/logos/canva.png'); }
+
+@media (max-width: 599px) {
+  .logos { gap: 40px; padding-block: 48px; }
+  .logos__title { font-size: 17px; }
+  .logos__row { gap: 44px; }
+}

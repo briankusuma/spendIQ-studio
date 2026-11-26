@@ -1,0 +1,40 @@
+/* Figma 4148:1291 — 1440 × 39 */
+.announcement {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-height: 39px;
+  padding: 12px var(--gutter);
+  background-image: var(--grad-announcement);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+}
+
+.announcement__glow {
+  position: absolute;
+  left: 50%;
+  top: -46px;
+  width: 771px;
+  height: 75px;
+  max-width: none;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.announcement__text,
+.announcement__link { position: relative; }
+
+.announcement__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+}
+.announcement__link img { width: 14px; height: 14px; transition: transform 0.3s var(--ease-out); }
+.announcement__link:hover img { transform: translateX(4px); }
