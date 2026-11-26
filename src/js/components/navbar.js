@@ -3,6 +3,8 @@ import { scrollTo, stopScroll, startScroll } from '../lenis.js';
 
 const SCROLLED_AT = 40;
 const HIDE_AFTER = 400;
+const HIDE_DELTA = 24; // harus turun ≥24px berturut-turut sebelum navbar disembunyikan
+const SHOW_DELTA = 12; // naik ≥12px untuk memunculkan lagi
 
 export function initNavbar() {
   const navbar = document.querySelector('[data-navbar]');
@@ -15,16 +17,30 @@ export function initNavbar() {
   let lastY = window.scrollY;
   let ticking = false;
   let menuOpen = false;
+  let travel = 0; // jarak scroll terkumpul ke satu arah (+ turun, − naik)
+  let hidden = false;
+
+  const setHidden = (value) => {
+    if (hidden === value) return; // hindari toggle berulang → tidak berkedip
+    hidden = value;
+    navbar.classList.toggle('is-hidden', value);
+  };
 
   const update = () => {
-    const y = window.scrollY;
-    navbar.classList.toggle('is-scrolled', y > SCROLLED_AT);
-    if (!menuOpen) {
-      const goingDown = y > lastY;
-      navbar.classList.toggle('is-hidden', goingDown && y > HIDE_AFTER);
-    }
+    const y = Math.max(0, window.scrollY);
+    const dy = y - lastY;
     lastY = y;
     ticking = false;
+
+    navbar.classList.toggle('is-scrolled', y > SCROLLED_AT);
+    if (menuOpen || dy === 0) return; // frame tanpa gerakan: pertahankan state
+
+    // reset akumulasi bila arah berubah
+    travel = Math.sign(dy) === Math.sign(travel) ? travel + dy : dy;
+
+    if (y <= HIDE_AFTER) setHidden(false);
+    else if (travel > HIDE_DELTA) setHidden(true);
+    else if (travel < -SHOW_DELTA) setHidden(false);
   };
 
   window.addEventListener(
@@ -39,7 +55,7 @@ export function initNavbar() {
   );
   update();
 
-  navbar.addEventListener('focusin', () => navbar.classList.remove('is-hidden'));
+  navbar.addEventListener('focusin', () => setHidden(false));
 
   /* ---------- Menu mobile ---------- */
   const links = panel ? panel.querySelectorAll('.mobile-menu__links a, .mobile-menu__actions .btn') : [];
@@ -52,7 +68,7 @@ export function initNavbar() {
     // navbar bisa berada di bawah announcement bar (belum di-scroll) → mulai link di bawahnya
     panel.style.paddingTop = `${navbar.getBoundingClientRect().bottom + 32}px`;
     panel.classList.add('is-open');
-    navbar.classList.remove('is-hidden');
+    setHidden(false);
     stopScroll();
     gsap.fromTo(panel, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'power2.out' });
     gsap.fromTo(
